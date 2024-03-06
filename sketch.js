@@ -126,7 +126,7 @@ function draw(){
       push();
       fill(255);
       textSize(80);
-      text("You failed!", 300, 200);
+      text("Time is out", 300, 200);
       pop();
     }
 
