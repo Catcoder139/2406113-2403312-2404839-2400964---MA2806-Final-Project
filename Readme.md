@@ -27,5 +27,5 @@ o	Sophie: Collectibles and timer.
 	Forming classes to generate collectibles, managing character-collectible interactions and timer.
 o	Yasmin: Player class and movement.
 	Forming classes to generate the player, management of different player sprites and movement/controls for the character.
-o	Marta: Illustration and coding audio. 
-	Illustrating background images, player sprites, platform images and collectibles. Coding audio into each level and adding sound effects such as jumping noises. 
+o	Marta: Illustration, coding image assets and coding audio assets. 
+	Illustrating background images, player sprites, platform images and collectibles. Adding the code that displays the visual assets. Coding audio into each level and adding sound effects such as jumping noises. 
