@@ -1,3 +1,4 @@
+//Motivating Mysha 
 /*Credit: We based our code on Hugh Hammonds found on his github repository for the class
 changed it to suit our needs. We commented over it ourselves, changed some of the functions
 and developed it to fit the aims of our game (e.g. collecting items).
@@ -15,82 +16,203 @@ Notes:
 We divided commenting among ourselves, so there may be slight inconsistencies in
 the comment styles. */
 let tilemap =[];
- const tileSize = 50;
- let playerStartingX = 7; // X position for the player to start
+let tilemap2 =[];
+let tilemap3 = [];
+ const tileSize = 80;
+ let playerStartingX = 1; // X position for the player to start
  let playerStartingY = 6; // Y position for the player to start
- let numAcross = 12;
- let numDown = 8;
+ let numAcross = 15;
+ let numDown = 10;
  let textures =[];
  let boxes = [];
- let timer = 60; // Sets the timer to 60 seconds
+ let timer = 45; // Sets the timer to 60 seconds
+ let timer2 = 30;
+ let timer3 = 20;
+ let level = 1;
+ let font;
 
  // Creates the graphics map
  let graphicsMap =[
-//   0  1  2  3  4  5  6  7  8  9  10 11
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//0
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],//3
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//4
-    [0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],//5
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//6
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//7
-    
- ]
+//  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//0
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
+    [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 3, 0, 0, 0],//3
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//4
+    [0, 2, 1, 1, 1, 3, 0, 0, 0, 0, 0, 2, 1, 1, 3],//5
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//6
+    [0, 0, 0, 0, 0, 2, 1, 1, 3, 0, 0, 0, 0, 0, 0],//7
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//8
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//9
+ ];
+
+ let graphicsMap2 =[
+//  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//0
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
+    [0, 4, 5, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0],//3
+    [0, 0, 0, 0, 0, 0, 0, 4, 5, 5, 6, 0, 0, 0, 0],//4
+    [0, 0, 0, 0, 0, 0, 4, 5, 5, 5, 5, 6, 0, 0, 0],//5
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//6
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 5, 6],//7
+    [0, 4, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//8
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],//9
+];
+
+let graphicsMap3 =[
+//  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//0
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
+    [0, 0, 0, 0, 0, 0, 7, 8, 8, 8, 8, 8, 9, 0, 0],//3
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//4
+    [0, 7, 8, 8, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],//5
+    [0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 9, 0, 0, 0, 0],//6
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 8],//7
+    [0, 0, 0, 7, 8, 8, 8, 9, 0, 0, 7, 8, 8, 8, 8],//8  
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],//9
+];
 
  // Creates the rules for the tiles / platforms
  let tileRules =[
-    //   0  1  2  3  4  5  6  7  8  9  10 11
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//0
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],//3
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//4
-    [0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],//5
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//6
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//7
- ]
+//  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//0
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],//3
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//4
+    [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],//5
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//6
+    [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],//7
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//8
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//9
+];
+
+ let tileRules2 =[
+//  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//0
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
+    [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//3
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],//4
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],//5
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//6
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],//7
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//8
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//9
+];
+
+ let tileRules3 =[
+//  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//0
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//1
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//2
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],//3
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//4
+    [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//5
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],//6
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],//7
+    [0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],//8  
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],//9
+ ];
 
  // Player information
  let player;
  let playerSprite;
  let xSpeed = 5;
  let ySpeed = 10;
- let jumpHeight = 130;
+ let jumpHeight = 250;
  let playerSize = tileSize;
+ let jumpsound = null;
 
 // Loads all the assets
  function preload(){
     textures[0] = loadImage("clear.png");
-    textures[1] = loadImage("platform.png");
+    textures[1] = loadImage("middleshelf.png");
+    textures[2] = loadImage("leftshelf.png");
+    textures[3] = loadImage("rightshelf.png");
+    textures[4] = loadImage("leftshelf2.png");
+    textures[5] = loadImage("middleshelf2.png");
+    textures[6] = loadImage("rightshelf2.png");
+    textures[7] = loadImage("leftshelf3.png");
+    textures[8] = loadImage("middleshelf3.png");
+    textures[9] = loadImage("rightshelf3.png");
     bg = loadImage("background.jpg");
-    playerSprite = loadImage("avatar1.png");
+    bg2 = loadImage("background2.png");
+    bg3 = loadImage("background3.jpg");
+    playerSprite = loadImage("avatargif.gif");
+    inverseSprite = loadImage("avatargif2.gif");
     toothbrushImage = loadImage("toothbrush.png");
     coffeeImage = loadImage("coffee.png");
-
+    cerealImage = loadImage("cereal.png");
+    bookImage = loadImage("books.png");
+    laptopImage = loadImage("laptop.png");
+    phoneImage = loadImage("phone.png");
+    honeyImage = loadImage("honey.png");
+    familyImage = loadImage("family.png");
+    moonImage = loadImage("moon.png");
+    jumpsound = new Audio('jumpsound.mp3');
+    font =loadFont('pixelfont.TTF');
  }
 
- function setup(){
-    createCanvas(600,400);
-    let tileID= 0;
-    for (let across = 0; across < numAcross; across++) {
+function setup(){
+let cnv = createCanvas(1200,800);
+cnv.center('horizontal');
+let tileID= 0;
+for (let across = 0; across < numAcross; across++) {
     tilemap[across] = [];
     for (let down = 0; down < numDown; down++) {
     // Setting Texture For Tile
-    let textureNum = graphicsMap[down][across];
+        let textureNum = graphicsMap[down][across];
     // Initialising Tile
-    tilemap[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID); // THIS LINE CREATES OUR NEW TILE!
+        tilemap[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID); // THIS LINE CREATES OUR NEW TILE!
   
-    tileID++;
+        tileID++;
      }
   } // Tile creation finished
-  
+
+for (let across = 0; across < numAcross; across++) {
+    tilemap2[across] = [];
+    for (let down = 0; down < numDown; down++) {
+        // Setting Texture For Tile
+    let textureNum = graphicsMap2[down][across];
+        // Initialising Tile
+    tilemap2[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID); // THIS LINE CREATES OUR NEW TILE!
+      
+    tileID++;
+         }
+      } // Tile creation finished
+
+for (let across = 0; across < numAcross; across++) {
+    tilemap3[across] = [];
+    for (let down = 0; down < numDown; down++) {
+            // Setting Texture For Tile
+        let textureNum = graphicsMap3[down][across];
+            // Initialising Tile
+        tilemap3[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID); // THIS LINE CREATES OUR NEW TILE!
+          
+        tileID++;
+    }
+} // Tile creation finished
+    
   // Create boxes / the collectibles
-  boxes.push(new Box(120, height - 200, toothbrushImage));
-  boxes.push(new Box(320, height - 300, coffeeImage));
+  boxes.push(new Box(280, 320 , toothbrushImage));
+  boxes.push(new Box(1010, 320, coffeeImage));
+  boxes.push(new Box(680, 175, cerealImage));
+  boxes.push(new Box(400, 650, bookImage));
+  boxes.push(new Box(240, 180, laptopImage));
+  boxes.push(new Box(800, 330, phoneImage));
+  boxes.push(new Box(240, 325, honeyImage));
+  boxes.push(new Box(720, 170, familyImage));
+  boxes.push(new Box(1040, 475, moonImage));
   player = new Player(playerSprite, playerStartingX, playerStartingY, tileSize, xSpeed, ySpeed, jumpHeight, tileSize, tileRules);
+  player2 = new Player(playerSprite, playerStartingX, playerStartingY, tileSize, xSpeed, ySpeed, jumpHeight, tileSize, tileRules2);
+  player3 = new Player(playerSprite, playerStartingX, playerStartingY, tileSize, xSpeed, ySpeed, jumpHeight, tileSize, tileRules3);    
 }
 function draw(){
+textFont(font);
+if(level== 1){
     background(bg);
     for (let across = 0; across < numAcross; across++) {
         for (let down = 0; down < numDown; down++) {
@@ -100,39 +222,138 @@ function draw(){
     }
     player.display();
     player.update();
-    for (let box of boxes) {
-      box.display();
+    for (let i =0; i<3; i++) {
+      boxes[i].display();
       
       // Check for collision with player
-      if (player.checkCollisionBox(box)) {
-        box.isTouched = true;
+      if (player.checkCollisionBox(boxes[i])) {
+        boxes[i].isTouched = true;
       }
     }
 
     // Creates the timer
     push();
-    textAlign(CENTER);
+    textAlign(RIGHT);
     fill(255);
-    textSize(30);
-    text("Time left: "+ timer, 500, 30);
+    textSize(40);
+    text("Time left: "+ timer, 1175, 40);
+    text("Next level ->",1172,770);
     pop();
      // Displays the amount of points in the left hand corner and the timer in the right hand corner
      if (frameCount % 60 == 0 && timer>0){
         timer--;
     }
+    if(timer==0){
+        level = 4;
+    }
     // Displays a failed 'screen' to the player if they don't finish the level in time
-    if(timer ==0){
-      textAlign(CENTER);
-      push();
-      fill(255);
-      textSize(80);
-      text("Time is out", 300, 200);
-      pop();
+    if(boxes[0].isTouched && boxes[1].isTouched && boxes[2] && player.xPos >=1100){
+     level = 2;
+   }
+}
+if(level==2){
+    background(bg2);
+    for (let across = 0; across < numAcross; across++) {
+        for (let down = 0; down < numDown; down++) {
+            tilemap2[across][down].display(); // runs display() method for each tile!
+            //tilemap[across][down].debug(); // runs debug() method for each tile!
+            }
+        }
+
+    player2.display();
+    player2.update();
+    for (let i =3; i<6; i++) {
+        boxes[i].display();
+        
+        // Check for collision with player
+        if (player2.checkCollisionBox(boxes[i])) {
+          boxes[i].isTouched = true;
+        }
+      }
+        
+    // Creates the timer
+    push();
+    textAlign(RIGHT);
+    fill(255);
+    textSize(40);
+    text("Time left: "+ timer2, 1175, 40);
+    text("Next level ->",1172,770);
+    pop();
+    // Displays the amount of points in the left hand corner and the timer in the right hand corner
+    if (frameCount % 60 == 0 && timer2>0){
+        timer2--;
+    }
+    if(timer2==0){
+        level = 4;
+    }
+    // Displays a failed 'screen' to the player if they don't finish the level in time
+    if(boxes[3].isTouched && boxes[4].isTouched && boxes[5] && player2.xPos >=1100){
+     level = 3;
+   }
+}
+
+if(level==3){
+    background(bg3);
+    for (let across = 0; across < numAcross; across++) {
+        for (let down = 0; down < numDown; down++) {
+            tilemap3[across][down].display(); // runs display() method for each tile!
+            //tilemap[across][down].debug(); // runs debug() method for each tile!
+        }
+    }
+    player3.display();
+    player3.update();
+    for (let i =6; i<9; i++) {
+        boxes[i].display();
+        
+        // Check for collision with player
+        if (player3.checkCollisionBox(boxes[i])) {
+          boxes[i].isTouched = true;
+        }
+      }
+        // Creates the timer
+    push();
+    textAlign(RIGHT);
+    fill(255);
+    textSize(40);
+    text("Time left: "+ timer3, 1175, 40);
+    text("Next level ->",1172,770);
+    pop();    
+    // Displays the amount of points in the left hand corner and the timer in the right hand corner
+    if (frameCount % 60 == 0 && timer3>0){
+        timer3--;
     }
 
+    if(timer3==0){
+        level = 4;
+    }
+    // Displays a failed 'screen' to the player if they don't finish the level in time
+    if(boxes[6].isTouched && boxes[7].isTouched && boxes[8] && player3.xPos >=1100){
+     level = 5;
+   }
+}
 
+if (level == 4){
+background(200);
+textAlign(CENTER);
+push();
+fill(255);
+textSize(65);
+text("You failed!", 600, 400);
+pop();
+}
 
- }
+if (level == 5){
+    background(200);
+    textAlign(CENTER);
+    push();
+    fill(255);
+    textSize(65);
+    text("Congratulations!", 600, 400);
+    pop();
+    }
+    
+}
+
 
 function keyPressed(){
     if (!player.isJumping && !player.isFalling && player.isGrounded) { //checks if player.isJUMPING = false, player.isFalling = false, AND player.isGrounded = true
@@ -141,6 +362,27 @@ function keyPressed(){
             player.isJumping = true;
             player.jumpTarget = player.yPos - player.jumpHeight;
             console.log(player.jumpTarget);
+            jumpsound.play();
+        }
+
+    }
+    if (!player2.isJumping && !player2.isFalling && player2.isGrounded) { //checks if player.isJUMPING = false, player.isFalling = false, AND player.isGrounded = true
+        //Check if key is space bar (our jump button).
+        if (key === " ") {
+            player2.isJumping = true;
+            player2.jumpTarget = player2.yPos - player2.jumpHeight;
+            console.log(player2.jumpTarget);
+            jumpsound.play();
+        }
+    }
+
+    if (!player3.isJumping && !player3.isFalling && player3.isGrounded) { //checks if player.isJUMPING = false, player.isFalling = false, AND player.isGrounded = true
+        //Check if key is space bar (our jump button).
+        if (key === " ") {
+            player3.isJumping = true;
+            player3.jumpTarget = player3.yPos - player3.jumpHeight;
+            console.log(player3.jumpTarget);
+            jumpsound.play();
         }
     }
 }
@@ -247,11 +489,13 @@ class Player{//creating player class
 
     setXdirection(){//creating function to track the horizontal direction the player is moving in
         if (keyIsDown("37")){
-            this.dirX= -1;
+            this.dirX= -1.25;
+            this.sprite = inverseSprite;
         }
         //if the left arrow key is down, the player will move to the left
         if (keyIsDown("39")){
-            this.dirX = 1;
+            this.dirX = 1.25;
+            this.sprite = playerSprite;
         }
         //if the right arrow is down, the player will move to the right
 
@@ -272,7 +516,7 @@ class Player{//creating player class
         }
         //if the player is jumping, the player will move upwards
         if (this.isFalling) {
-            this.dirY = 0.5;
+            this.dirY = 0.75;
         }
         //if the player is falling, the player will move downwards
     }
@@ -328,10 +572,18 @@ class Player{//creating player class
     }
 
     move(){//creating a function to move the player sprite
-        this.yPos += this.ySpeed * this.dirY;
-        //the player moves vertically by adding the value of the speed and the direction multiplied
-        this.xPos += this.xSpeed * this.dirX;
-        //the player moves horizontally by adding the value of the speed and the direction multiplied
+        // Calculate the next position
+        let nextX = this.xPos + this.xSpeed * this.dirX;
+        let nextY = this.yPos + this.ySpeed * this.dirY;
+        
+        // Check if the next position is within the canvas boundaries
+        if (nextX >= 0 && nextX + this.size <= width) {
+            this.xPos = nextX; // Update X position if within canvas boundaries
+        }
+        if (nextY >= 0 && nextY + this.size <= height) {
+            this.yPos = nextY; // Update Y position if within canvas boundaries
+            
+        }
     }
 
     collisionCheck(velX,velY){//creating a function to check for collisions between two points
@@ -422,7 +674,7 @@ class Box {
     constructor(x, y, image) {
       this.x = x;
       this.y = y;
-      this.size = 50;
+      this.size = 80;
       this.image = image;
       this.isTouched = false; //initializes the touched state of the box to false
     }
@@ -430,9 +682,9 @@ class Box {
     display() {
       if (!this.isTouched) { // check the box not have been touched 
         push();
-      imageMode(CENTER); 
-      pop();
-      image(this.image, this.x, this.y, this.size, this.size); // diaplays the position and the size of the image 
-         }
+        imageMode(LEFT); 
+        image(this.image, this.x, this.y, this.size, this.size); // diaplays the position and the size of the image 
+        pop();
+        }
        }
       }
